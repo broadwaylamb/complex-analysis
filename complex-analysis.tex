@@ -1,0 +1,417 @@
+\documentclass[11pt,openany,a4paper]{scrartcl}
+
+\usepackage{indentfirst}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amsopn}
+\usepackage{mathtext}
+\usepackage{enumitem}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[intlimits]{mathtools}
+\usepackage[makeroom]{cancel}
+\usepackage{titletoc}
+\renewcommand{\bfdefault}{sbc}
+\usepackage{ccfonts,eulervm,microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+
+\usepackage[portrait,a4paper,margin=2.5cm,headsep=5mm]{geometry}
+
+\author{Н. В. Цилевич \thanks{Конспект подготовлен студентом Яскевичем С. В.}}
+\title{Теория функций комплексной переменной}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{corollary}[theorem]{Следствие}
+\newtheorem{proposition}[theorem]{Предложение}
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{exercise}[theorem]{Упражнение}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Определение}
+\newtheorem{remark}[theorem]{Замечание}
+\newtheorem{example}[theorem]{Пример}
+\newtheorem{examples}[theorem]{Примеры}
+\newtheorem{num}[theorem]{}
+
+\newcommand\mb{\mathbb}
+\newcommand\real{\mb R}
+\newcommand{\complex}{\mb C}
+\newcommand\eqdef{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny def}}}{=}}}
+\newcommand\lparagraph[1]{\paragraph{#1}\mbox{}\\}
+\DeclareMathOperator{\Ree}{Re}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\dist}{dist}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\pagebreak
+
+\section{Комплексные числа}
+
+Вспомним базовые понятия, связанные с комплексными числами.
+
+Комплексное число представляется в виде пары вещественных чисел: $ z = (x, y) \in \complex$,
+где~$ x,y \in \real$. При этом $x$ называется вещественной частью числа $z$, а $y$ — мнимой частью. Комплексные
+числа равны тогда и только тогда, когда равны их соответственно вещественные и мнимые части. Также справедливы
+следующие соотношения:
+\begin{enumerate}
+	\item $(x_1, y_1) + (x_2, y_2) = (x_1 + x_2, y_1 + y_2)$
+	\item $(x_1, y_1) \cdot (x_2, y_2) = (x_1x_2 - y_1y_2, x_1y_2 + x_2y_1)$
+	\item $\real \subset \complex$, при этом $x \in \real \mapsto (x, 0)$ и операции согласованы.
+\end{enumerate}
+
+Число $i = (0, 1)$ называется \emph{мнимой единицей}. Легко видеть, что $i^2 = 1$. Таким образом, комплексное
+число можно записать в \emph{алгебраической форме}: $z = (x, y) = z + iy$. Числа вида $iy$ $(y \in \real)$
+называеются \emph{чисто мнимыми}.
+
+\begin{theorem}
+	$(\complex, +, \cdot)$ — поле. Вычитание и деление вводятся как операции, обратные к сложению и умножению.
+\end{theorem}
+\begin{proof}
+	Тривиально.
+\end{proof}
+\begin{remark}
+	На $\complex$ не задано отношения порядка.
+\end{remark}
+
+Определим операцию комплексного сопряжения: если $z = x + iy$, то $\overline z = x - iy$.
+
+Свойства сопряжения:
+\begin{enumerate}
+	\item $\overline{\overline z} = z$ (\emph{инволюция});
+	\item $\overline{z_1 \ast z_2} = \overline{z_1} \ast \overline{z_2}$, где $\ast$ — любая арифметическая операция;
+	\item $z + \overline z = 2\Ree z$, $z - \overline z = 2i\Img z$;
+	\item $z\overline z = (\Ree z)^2 + (\Img z)^2 \geqslant 0$;
+	\item $z = \overline z \iff z \in \real$.
+\end{enumerate}
+
+\lparagraph{Геометрическая интерпретация комплексных чисел}\mbox{}\\
+
+\begin{center}
+	\begin{tikzpicture}[
+	    scale=3,
+	    axis/.style={very thick, ->, >=stealth'},
+	    ]
+		\draw[axis] (-0.1, 0)  -- (1.1, 0) node(xline)[right]{$x$};
+	    \draw[axis] (0,-0.1) -- (0, 1.1) node(yline)[above]{$y$};
+	    \draw[style={->, >=stealth'}] (0, 0) -- (0.8, 0.7) node[right]{$(x, y) \leftarrow x + iy \in \complex$};
+	    \draw (0.2, 0) arc (0:41:0.2);
+	    \node at (0.35, 0.4) (r) {$r$};
+	    \node at (0.27, 0.1) (phi) {$\varphi$};
+	\end{tikzpicture}
+\end{center}
+
+Сложение комплексных чисел соответствует сложению их радиус-векторов на комплексной плоскости. Перейдём
+к полярным координатам: $x = r\cos \varphi$, $y = r \sin \varphi$. Благодаря этому мы можем записать комплексное число в \emph{тригонометрической форме}: $z = r(\cos \varphi + i\sin \varphi)$. $r = |z|$ называется \emph{модулем} числа $z$, а $\varphi$ — его \emph{аргументом}.
+\pagebreak
+
+Свойства модуля:
+\begin{enumerate}
+	\item Геометрический смысл: $|z|$ — расстояние на комплексной плоскости от $0$ до $z$, отсюда $|z_1 - z_2|$ — расстояние между точками $z_1$ и $z_2$;
+	\item $|z|=\sqrt{(\Ree z)^2 + (\Img z)^2} = \sqrt{z\overline z} \geqslant 0$;
+	\item $|z| = 0 \iff z = 0$;
+	\item $|\Ree z|, |\Img z| \leqslant |z|$;
+	\item Неравенство треугольника: $|z_1 + z_2| \leqslant |z_1| + |z_2|$;
+	\item $|z_1 - z_2| \geqslant ||z_1| - |z_2||$
+\end{enumerate}
+
+Заметим, что аргумент определён для любого ненулевого $z$ с точностью до $2\pi k$ ($k \in \mb Z$).
+Будем обозначать $\Arg z$ множество всех аргументов $z$, а $\arg z$ — значение аргумента из
+фиксированного интервала длины $2\pi$, например, $(0, 2\pi)$.
+
+$$
+\Arg z =
+\begin{cases}
+	\arctg \frac{y}{x} + 2\pi k, k \in \mb Z \text{ — в I и IV квадранта}\\
+	\arctg \frac{y}{x} + (2k + 1)\pi, k \in \mb Z \text{ — во II и III квадрантах}\\
+\end{cases}
+$$
+$$
+z_1 = z_2 \iff |z_1| = |z_2| \text{ и } \arg z_1 - arg z_2 = 2\pi k\ (k \in \mb Z)
+$$
+
+\lparagraph{Показательная форма записи комплексного числа}
+
+Введём теперь обозначение: $e^{i\varphi} \eqdef \cos \varphi + i\sin \varphi$. Тогда $z = re^{i\varphi}$ — такая
+форма называется \emph{показательной}.
+
+\begin{lemma}
+	Пусть $z_1 = r_1 e^{i\varphi_1}$, $z_2 = r_2 e^{i\varphi_2}$. Тогда $z_1z_2 = r_1r_2e^{i(\varphi_1 +
+	\varphi_2)}$, $\frac{z_1}{z_2} = \frac{r_1}{r_2}e^{i(\varphi_1 -
+	\varphi_2)}$
+\end{lemma}
+\begin{proof}
+	$$
+	z_1z_2 = r_1r_2(\cos \varphi_1 + i\sin \varphi_1)(\cos \varphi_2 + i\sin \varphi_2) =
+	$$
+	$$
+	= r_1r_2(\cos \varphi_1 \cos \varphi_2 - \sin \varphi_1 \sin \varphi_2 + i(\cos \varphi_1 \sin \varphi_2 + \sin \varphi_1 \cos \varphi_2)) =
+	$$
+	$$
+	= r_1r_2(\cos (\varphi_1 + \varphi_2) + i\sin (\varphi_1 + \varphi_2)) = r_1r_2e^{i(\varphi_1 + \varphi_2)}
+	$$
+	Для частного — аналогично.
+\end{proof}
+
+Таким образом, имеем $|z_1z_2| = |z_1||z_2|$, $\Arg (z_1z_2) = \Arg z_1 + \Arg z_2$ (по определению суммы множеств 
+$A + B \eqdef \{a + b:\, a \in A,\, b \in B\}$) и $\arg (z_1z_2) = \arg z_1 + \arg z_2 + 2\pi k\:(k\in
+\mb Z)$.
+
+Геометрический смысл умножения на число $a \in \complex$: радиус-вектор растягивается в $|a|$ раз и поворачивается на
+угол $\arg a$.
+
+\begin{example}
+	Умножение на $i$ — поворот на $\frac{\pi}{2}$.
+\end{example}
+
+\lparagraph{Корень $n$-й степени из комплексного числа}
+
+Воспользуемся показательной формой: $z^n = r^ne^{in\varphi}$.
+\begin{definition}
+	$w = \rho e^{i\psi}$ — корень $n$-й степени из $z = re^{i\varphi} \in \complex \textbackslash \{0\}$ тогда и только тогда, когда $w^n = z$.
+\end{definition}
+
+То есть:
+$$
+\rho^ne^{in\psi} = re^{i\varphi} \iff
+\begin{cases}
+	\rho^n = r\\
+	n\psi = \varphi + 2\pi k,\,k \in \mb Z
+\end{cases}
+\iff
+\begin{cases}
+	\rho = \sqrt[n]{r}\\
+	\psi = \frac{\varphi}{n} + \frac{2\pi k}{n}\quad(k = 0,...,n - 1)
+\end{cases}
+$$
+Итого, корней $n$-й степени из $z$ $n$ штук.
+
+\section{Стереографическая проекция и сфера Римана}
+
+\begin{center}
+	\begin{tikzpicture}[
+	    scale=4,
+	    axis/.style={very thick, ->, >=stealth'},
+	    ]
+		\draw[axis] (-0.1, 0)  -- (1.1, 0) node(xline)[right]{$x$, $\xi$};
+	    \draw[axis] (0,-0.1) -- (0, 1.1) node(zline)[above]{$\zeta$};
+	    \draw[axis] (0.05, 0.05) -- (-0.65, -0.65) node(yline)[left]{$y$, $\eta$};
+		\draw (0, 0) arc (-90:270:0.4);
+		\draw (0.4, 0.4) arc (-48:-131.5:0.6);
+		\draw[dotted] (0.4, 0.4) arc (48:131.5:0.6);
+		\node at (0, 0.8) (N) {};
+		\node at (0.3, 0.85) {$N = (0, 0, 1)$};
+		\node at (0.5, -0.4) (z1) {};
+		\node at (0.2, -0.7) (z2) {};
+		\node at (0.12, 0.53) (Az1) {};
+		\node at (0.03, 0.6) (Az2) {};
+		\node at ($(z1)+(0.1, 0)$) {$z_1$};
+		\node at ($(z2)+(0.1, 0)$) {$z_2$};
+		\node at ($(Az1)+(0.15, 0)$) {$A(z_1)$};
+		\node at ($(Az2)+(-0.15, 0)$) {$A(z_2)$};
+		\draw[dotted] (N) -- (Az1);
+		\draw (Az1) -- (z1);
+		\draw[dotted] (N) -- (Az2);
+		\draw (Az2) -- (z2);
+		\fill[black] (N) circle (.5pt);
+		\fill[black] (z1) circle (.5pt);
+		\fill[black] (z2) circle (.5pt);
+		\fill[black] (Az1) circle (.5pt);
+		\fill[black] (Az2) circle (.5pt);
+	\end{tikzpicture}
+\end{center}
+
+Рассмотрим сферу $S$ с центром в точке $(0, 0, \frac{1}{2})$ и радиусом $\frac{1}{2}$. Уравнение этой сферы будет 
+таким:
+$$
+\xi^2 + \eta^2 + \zeta^2 - \zeta = 0
+$$
+
+Отождествим комплексную плоскость $(x, y)$ с плоскостью $(\xi, \eta)$. Рассмотрим лучи, исходящие из полюса $N$ в
+точки $z$. Ясно, что точка пересечения луча и сферы единственна. Обозначим её как $A(z)$. Это и будет 
+стереографическая проекция точки $z$ на сферу $S$, которая называется \emph{сферой Римана}. Таким образом мы 
+установили взаимно-однозначное соответствие между комплексной плоскостью и сферой Римана без полюса:
+$$
+\complex \leftrightarrow S \textbackslash \{N\}
+$$
+
+\begin{proposition}
+	Справедливы соотношения:
+	$$
+	\xi = \frac{x}{1 + |z|^2},\quad\eta = \frac{y}{1 + |z|^2},\quad\zeta = \frac{|z^2|}{1 + |z|^2}
+	$$
+	$$
+	x = \frac{\xi}{1 - \zeta},\quad y = \frac{\eta}{1 - \zeta}
+	$$
+\end{proposition}
+\begin{proof}
+	Построим прямую через точки $N = (0, 0, 1)$ и $z = (x, y, 0)$. Она имеет вид
+	$\{(tx, ty, 1-t)\,|\, t \in \real\}$. Подставим координаты точек прямой в уравнение сферы Римана:
+	$$
+	t^2x^2 + t^2y^2 + \cancel{1} - 2t + t^2 - \cancel{1} + t = 0
+	$$
+	$$
+	t^2(\underbrace{x^2 + y^2}_{|z|^2} + 1) = t \implies t = \frac{1}{1 + |z|^2} \text{, откуда } \xi = tx =
+	\frac{x}{1 + |z|^2}
+	$$
+	Далее аналогично.
+\end{proof}
+\begin{proposition}
+	$\dist(A(z_1), A(z_2)) = \frac{|z_1 - z_2|}{\sqrt{1 + |z_1|^2} \cdot \sqrt{1 + |z_2|^2}}$,
+	$\dist(A(z), N) = \frac{1}{\sqrt{q + |z|^2}}$.
+\end{proposition}
+\begin{proof}
+	Спроецируем $A(z_1)$, $A(z_2)$ на ось $O\zeta$. Видно, что треугольники $\triangle BNA(z_1)$ и $\triangle ONz_1$
+	подобны (здесь $B = (0, 0, \zeta_1)$). Поэтому
+	$$
+	\frac{\dist(N, A(z_1))}{\dist(N, z_1)} = \frac{\overbrace{\dist(N, B)}^{1 - \zeta_1}}{\underbrace{\dist(N, O)}_1}
+	\implies \dist(N, A(z_1)) = \sqrt{1 + |z_1|^2} \cdot \overbrace{(1 - \zeta_1)}^{\frac{1}{1 + |z_1|^2}} = 
+	\frac{1}{\sqrt{1 + |z_1|^2}}
+	$$
+	Точно также подобны $\triangle NA(z_1)A(z_2)$ и $\triangle Nz_1z_2$, отсюда
+	$$
+	\frac{\dist(A(z_1), A(z_2))}{\dist(z_1, z_2)} = \frac{\dist(N, A(z_1))}{\dist(N, z_1)} = \frac{1}{\sqrt{1 +|z_1|^2}}
+	\cdot \frac{1}{\sqrt{1 + |z_2|^2}}
+	$$
+\end{proof}
+
+\begin{definition}
+	Обобщённая окружность — это окружность или прямая.
+\end{definition}
+
+Запишем уравнение обобщённой окружности:
+$$
+A(x^2 + y^2) + Bx + Cy + D = 0 \text{, где } A, B, C, D \in \real,\, B^2 + C^2 > 4AD
+$$
+Очевидно, что это уравнение является уравнением окружности тогда и только тогда, когда $A \neq 0$. В противном случае это — 
+прямая.
+
+\begin{proposition}
+	Стереографическая проекция устанавливает биекцию между обобщёнными окружностями в $\complex$ и окружностями на сфере 
+	Римана. При этом прямым соответствуют окружности, проходящие через точку $N$.
+\end{proposition}
+\begin{proof}
+	Воспользуемся формулами $x = \frac{\xi}{1 - \zeta}$, $y = \frac{\eta}{1 - \zeta}$:
+	$$
+	\frac{A\cdot(\xi^2 + \eta^2)}{(1 - \zeta)^2} + \frac{B\xi + C\eta}{1 - \zeta} + D = 0
+	$$
+	С учётом $\xi^2 + \eta^2 = \zeta(1 - \zeta)$ получим 
+	$$
+	\frac{A\zeta}{1 - \zeta} + \frac{B\xi + C\eta}{1 - \zeta} + D = 0
+	$$
+	$$
+	(A - D)\zeta + B\xi + C\eta + D = 0
+	$$
+	Мы получили уравнение плоскости. Значит, образом будет пересечение сферы с плоскостью, то есть окружность.
+	Если мы в полученное уравнение подставим $N$, то убедимся, что $N$ лежит в этой плоскости, при этом $A = 0$.
+\end{proof}
+
+\begin{definition}
+	$\overline{\complex} = \complex \cup \{\infty\}$ называется расширенной комплексной плоскостью, $\infty$ — бесконечно 
+	удалённая точка.
+\end{definition}
+
+Дополним определение стереографической проекции: пусть $N$ переходит в $\infty$ и обратно. Тогда стереографическая проекция 
+устанавливает биекцию между $S$ и $\overline{\complex}$, следовательно мы можем считать прямую окружностью, проходящей через
+$\infty$.
+
+\begin{remark}
+	Стереографическая проекция конформна, то есть сохраняет углы между кривыми (будет описано далее).
+\end{remark}
+\begin{remark}
+	Дробно-линейные отображения в $\complex$ переходят в движения сферы Римана.
+\end{remark}
+\pagebreak
+
+\section{Предел и непрерывность}
+
+Мы отождествили $\complex$ и $\real^2$, а следовательно ввели понятие сходимости, которое наследует из $\real^2$ основные 
+свойства.
+\begin{definition}
+	$z_n \rightarrow z \iff \forall\varepsilon > 0\quad \exists N: \forall n > N\quad |z_n - z| < \varepsilon$.
+\end{definition}
+
+Свойства сходимости:
+\begin{enumerate}
+	\item \emph{Покоординатность}: $z_n \rightarrow z \iff x_n \rightarrow x,\,y_n \rightarrow y$ (где $z_n = x_n + iy_n$,
+	$z = x + iy$);
+	\item \emph{Критерий Коши}: $z_n$ сходится, если $\forall \varepsilon > 0\quad\exists N: \forall m, n > N\quad
+	|z_n - z_m| < \varepsilon$;
+	\item \emph{Принцип Больцано-Вейерштрасса}: множество $A$ ограничено тогда и только тогда, когда существует $R$ такое, 
+	что $z < R$ для всех $z \in A$. Если $z_n$ ограничена, то из $z_n$ можно выбрать сходящуюся подпоследовательность;
+	\item $\lim (z_k \ast z'_k) = \lim z_k \ast \lim z'_k$, где $\ast$ — арифметическая операция.
+\end{enumerate}
+
+Расширим понятие сходимости на $\overline{\complex}$.
+
+\begin{definition}
+	$z_n \in \complex \rightarrow \infty \iff \forall R > 0\quad\exists N: \forall n > N\quad |z_n| > R$.
+\end{definition}
+\begin{remark}
+	Очевидно, что $z_n \rightarrow \infty \iff |z_n| \rightarrow \infty \iff \frac{1}{|z_n|} \rightarrow 0 \iff
+	\frac{1}{z_n} \rightarrow 0$.
+\end{remark}
+
+\begin{proposition}
+	Сходимость в $\overline{\complex}$ равносильна сходимости на сфере Римана. В частности, $z_n \rightarrow \infty \iff
+	A(z_n) \rightarrow N$.
+\end{proposition}
+\begin{proof}
+	Следует из формул для расстояния:
+	$$
+	\dist(A(z_n), A(z)) = \frac{|z_n - z|}{\sqrt{1 + |z_n|^2} \cdot \sqrt{1 + |z|^2}} \rightarrow 0
+	$$
+\end{proof}
+
+Отсюда также вытекает, что $\overline{\complex}$ — компактно.
+
+Займёмся теперь изучением функций комплексной переменной.
+
+\lparagraph{Предел функции комплексной переменной}
+\begin{definition}
+	$f(x + iy) = \underbrace{u(x, y)}_{\Ree f} + i\underbrace{v(x, y)}_{\Img f}$, при этом $u, v: \real^2 \rightarrow \real$
+\end{definition}
+\begin{definition}
+	Пусть $E\subset\complex$, $f: E \rightarrow \complex$, $z_0$ — предельная точка $E$ и $a \in \overline\complex$.
+	
+	$\lim\limits_{z \rightarrow z_0} f(z) = a \iff \forall \varepsilon > 0\quad \exists \delta > 0: z \in \overset{\circ}{B}_\delta(z_0)\cap E \implies f(z) \in B_\varepsilon(a)$
+\end{definition}
+
+Имеет место и покоординатная сходимость: $$
+\lim_{z \rightarrow z_0} f(z) = a = \alpha + i\beta \iff 
+\begin{cases}
+	\lim\limits_{(x, y) \rightarrow (x_0, y_0)} u(x, y) = \alpha\\
+	\lim\limits_{(x, y) \rightarrow (x_0, y_0)} v(x, y) = \beta\\
+\end{cases}
+$$
+
+\begin{definition}[по Гейне]
+	$\lim\limits_{z \rightarrow z_0} f(z) = a$, если для любой последовательности $z_n \subset E$ такой, что $z_n 
+	\rightarrow z_0$ выполнено $f(z_n) \rightarrow a$.
+\end{definition}
+\begin{definition}
+	Пусть $E \subset \complex$, $f: E \rightarrow \complex$, $z_0$ — неизолированная точка множества $E$. Функция $f$ 
+	называется \emph{непрерывной в точке} $z_0$, если $\lim\limits_{z \rightarrow z_0} f(z) = f(z_0)$; \emph{непрерывной на 
+	множестве} $E$, если $f$ непрерывна в каждой точке этого множества.
+\end{definition}
+
+Отметим важные свойства непрерывности:
+\begin{enumerate}
+	\item Функция $f$ непрерывна тогда и только тогда, когда $\Ree f$ и $\Img f$ непрерывны по совокупности переменных;
+	\item Композиция непрерывных функций непрерывна;
+	\item Если функция непрерывна на компакте, то она на нём ограничена, а её модуль достигает на этом компакте своих 
+	наибольшего и наименьшего значений.
+	\item Если $G$ — область (т. е. открытое связное множество), $f: G \rightarrow D$ и $f$ — непрерывная биекция, то
+	$D$ — тоже область и $f^{-1}$ непрерывно.
+\end{enumerate}
+
+\section{Дифференцирование функции комплексной переменной}
+
+\end{document}
