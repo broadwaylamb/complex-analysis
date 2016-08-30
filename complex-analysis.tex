@@ -12,6 +12,7 @@
 \usepackage{titletoc}
 \renewcommand{\bfdefault}{sbc}
 \usepackage{ccfonts,eulervm,microtype}
+\usepackage{enumitem}
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usetikzlibrary{calc}
@@ -117,12 +118,15 @@
 \end{center}
 
 Сложение комплексных чисел соответствует сложению их радиус-векторов на комплексной плоскости. Перейдём
-к полярным координатам: $x = r\cos \varphi$, $y = r \sin \varphi$. Благодаря этому мы можем записать комплексное число в \emph{тригонометрической форме}: $z = r(\cos \varphi + i\sin \varphi)$. $r = |z|$ называется \emph{модулем} числа $z$, а $\varphi$ — его \emph{аргументом}.
+к полярным координатам: $x = r\cos \varphi$, $y = r \sin \varphi$. Благодаря этому мы можем записать комплексное
+число в \emph{тригонометрической форме}: $z = r(\cos \varphi + i\sin \varphi)$. $r = |z|$ называется
+\emph{модулем} числа $z$, а $\varphi$ — его \emph{аргументом}.
 \pagebreak
 
 Свойства модуля:
 \begin{enumerate}
-	\item Геометрический смысл: $|z|$ — расстояние на комплексной плоскости от $0$ до $z$, отсюда $|z_1 - z_2|$ — расстояние между точками $z_1$ и $z_2$;
+	\item Геометрический смысл: $|z|$ — расстояние на комплексной плоскости от $0$ до $z$, отсюда
+	$|z_1 - z_2|$ — расстояние между точками $z_1$ и $z_2$;
 	\item $|z|=\sqrt{(\Ree z)^2 + (\Img z)^2} = \sqrt{z\overline z} \geqslant 0$;
 	\item $|z| = 0 \iff z = 0$;
 	\item $|\Ree z|, |\Img z| \leqslant |z|$;
@@ -160,7 +164,8 @@ $$
 	z_1z_2 = r_1r_2(\cos \varphi_1 + i\sin \varphi_1)(\cos \varphi_2 + i\sin \varphi_2) =
 	$$
 	$$
-	= r_1r_2(\cos \varphi_1 \cos \varphi_2 - \sin \varphi_1 \sin \varphi_2 + i(\cos \varphi_1 \sin \varphi_2 + \sin \varphi_1 \cos \varphi_2)) =
+	= r_1r_2(\cos \varphi_1 \cos \varphi_2 - \sin \varphi_1 \sin \varphi_2 + i(\cos \varphi_1 \sin \varphi_2 +
+	\sin \varphi_1 \cos \varphi_2)) =
 	$$
 	$$
 	= r_1r_2(\cos (\varphi_1 + \varphi_2) + i\sin (\varphi_1 + \varphi_2)) = r_1r_2e^{i(\varphi_1 + \varphi_2)}
@@ -183,7 +188,8 @@ $A + B \eqdef \{a + b\,|\, a \in A,\, b \in B\}$) и $\arg (z_1z_2) = \arg z_1 +
 
 Воспользуемся показательной формой: $z^n = r^ne^{in\varphi}$.
 \begin{definition}
-	$w = \rho e^{i\psi}$ — корень $n$-й степени из $z = re^{i\varphi} \in \complex \textbackslash \{0\}$ тогда и только тогда, когда $w^n = z$.
+	$w = \rho e^{i\psi}$ — корень $n$-й степени из $z = re^{i\varphi} \in \complex \textbackslash \{0\}$ тогда и
+	только тогда, когда $w^n = z$.
 \end{definition}
 
 То есть:
@@ -386,7 +392,8 @@ $\infty$.
 \begin{definition}
 	Пусть $E\subset\complex$, $f: E \to \complex$, $z_0$ — предельная точка $E$ и $a \in \overline\complex$.
 	
-	$\lim\limits_{z \to z_0} f(z) = a \iff \forall \varepsilon > 0\quad \exists \delta > 0: z \in \overset{\circ}{B}_\delta(z_0)\cap E \implies f(z) \in B_\varepsilon(a)$
+	$\lim\limits_{z \to z_0} f(z) = a \iff \forall \varepsilon > 0\quad \exists \delta > 0: z \in
+	\overset{\circ}{B}_\delta(z_0)\cap E \implies f(z) \in B_\varepsilon(a)$
 \end{definition}
 
 Имеет место и покоординатная сходимость: $$
@@ -420,7 +427,9 @@ $$
 \section{Дифференцирование функции комплексной переменной}
 
 \begin{definition}
-	Пусть $f: G \to \complex$, $G$ — область, $z_0 \in G$. Функция называется \emph{дифференцируемой в точке $z_0$}, если существует предел $\lim\limits_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0}$, который называется \emph{производной} функции $f$ в точке $z_0$ и обозначается $f'(z_0)$.
+	Пусть $f: G \to \complex$, $G$ — область, $z_0 \in G$. Функция называется \emph{дифференцируемой в точке $z_0$},
+	если существует предел $\lim\limits_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0}$, который называется
+	\emph{производной} функции $f$ в точке $z_0$ и обозначается $f'(z_0)$.
 \end{definition}
 
 Введём обозначение: $z - z_0 = \Delta z$, $f(z) - f(z_0) = \Delta f$ и заметим, что если $\varphi = \alpha + 
@@ -433,7 +442,9 @@ i\beta = o(\Delta z)$, то это то же самое, что $\alpha, \beta =
 	$A = f'(z_0)$;
 	\item Если $f$ дифференцируема в точке, то она непрерывна в этой точке;
 	\item Сумма и произведение дифференцируемых функций дифференцируемы;
-	\item \emph{Композиция}: пусть $f: G \to D$, $g: D \to \complex$, $G$ и $D$ — области, $z_0 \in G$, $w_0 = f(z_0)$ и $h(z) = g(f(z))$. Если $f$ дифференцируема в точке $z_0$, $g$ дифференцируема в точке $w_0$, то $h$ дифференцируема в точке $z_0$ и $h'(z_0) = g'(w_0) \cdot f'(z_0)$.
+	\item \emph{Композиция}: пусть $f: G \to D$, $g: D \to \complex$, $G$ и $D$ — области, $z_0 \in G$, $w_0 = f(z_0)$ и
+	$h(z) = g(f(z))$. Если $f$ дифференцируема в точке $z_0$, $g$ дифференцируема в точке $w_0$, то $h$ дифференцируема
+	в точке $z_0$ и $h'(z_0) = g'(w_0) \cdot f'(z_0)$.
 \end{enumerate}
 
 \begin{theorem}
@@ -590,11 +601,11 @@ $$
 \begin{examples}
 \begin{itemize}
 	\item если $f$ голоморфна в точке $z_0$ и $f'(z_0) \neq 0$, то $f$ конформно в $z_0$.
-	\item $f(z) = z^2$. $f'(z) = 2z$, $\arg f' = \const \implies f$ конформно в любой точке $z \neq 0$.
+	\item $f(z) = z^2$. $f'(z) = 2z \implies f$ конформно в любой точке $z \neq 0$.
 	
 	Допустим, $z_0 = i$. $\arg f'(z_0) = \frac{\pi}{2}$.
 	\begin{center}
-	\begin{tikzpicture}[scale=2,]
+	\begin{tikzpicture}[scale=2]
 		\draw[axis] (-0.8, 0)  -- (0.8, 0) node(xline1)[right]{$x$};
 	    \draw[axis] (0,-0.1) -- (0, 0.8) node(yline1)[above]{$y$};
 	    \node at (0, 0.3) (i) {};
@@ -609,7 +620,7 @@ $$
 	    
 	    \node at ($(0.5, 0.5)$) (dummy1) {};
 	    \node at ($(-0.5, 0.5) + (2, 0)$) (dummy2) {};
-	    \path (dummy1) edge[pil, bend left=45] node {} (dummy2) {};
+	    \path (dummy1) edge[pil, bend left=45] node[above] {$f$} (dummy2) {};
 	\end{tikzpicture}
 	\end{center}
 	
@@ -629,13 +640,224 @@ $$
 	    
 	    \node at ($(0.5, 0.5)$) (dummy1) {};
 	    \node at ($(-0.5, 0.5) + (2, 0)$) (dummy2) {};
-	    \path (dummy1) edge[pil, bend left=45] node {} (dummy2) {};
+	    \path (dummy1) edge[pil, bend left=45] node[above] {$f$} (dummy2) {};
 	\end{tikzpicture}
 	\end{center}
 	Видим, что угол межу прямыми составлял $\beta - \alpha$, а после действия функции $f$ стал $2(\beta - \alpha)$.
 \end{itemize}	
 \end{examples}
 
-\section{Элементарные функции комплексной перемнной}
+\section{Элементарные функции комплексной переменной}
+
+Изучим свойства некоторых важных функций.
+
+\lparagraph{Целая степенная функция $f(z) = z^n$, $n \in \mb N$}
+
+При $n = 1$ функция $f(z) = z$ регулярна на всей комплексной плоскости и конформна. При $n \geqslant 2$ $f$ регулярна
+в $\complex$, а её производная $f'(z) = nz^{n-1}$.
+
+$$
+z_1^n = z_2^n \iff r_1^ne^{in\varphi_1} = r_2^ne^{in\varphi_2} \iff
+\begin{cases}
+	r_1 = r_2\\
+	\varphi_1 - \varphi_2 = \frac{2\pi k}{n},\quad k \in \mb Z
+\end{cases}
+(\ast)
+$$
+Это означает, что $f$ взаимно однозначно в области $G$ тогда и только тогда, когда $G$ не содержит пар точек, 
+удовлетворяющих условию $(\ast)$. Пример такой области:
+$$
+G_k = \bigg\{\frac{2\pi k}{n} < \arg z < \frac{2\pi(k + 1)}{n}\bigg\}
+$$
+$f$ конформно отображает $G_k$ на $\complex \textbackslash \real_+$:
+
+\begin{center}
+	\begin{tikzpicture}[scale=4]
+		\draw[axis] (-0.8, 0)  -- (0.8, 0) node(xline1)[right]{$x$};
+	    \draw[axis] (0,-0.6) -- (0, 0.6) node(yline1)[above]{$y$};
+	    
+	    \draw (0, 0) -- ++(45:0.6) node(line11)[right]{$\frac{2\pi}{n}$};
+	    \draw (0, 0) -- ++(30:0.6);
+	    \draw (0, 0) -- ++(15:0.6) node(line21)[right]{$\varphi$};
+	    \draw[densely dashed] (0.2, 0) node(arc1)[below] {$r$} arc (0:45:0.2);
+	    \draw[densely dashed] (0.4, 0) arc (0:45:0.4);
+
+		\draw[axis] ($(-0.8, 0) + (2, 0)$)  -- ($(0.8, 0) + (2, 0)$) node(xline2)[right]{$x$};
+	    \draw[axis] ($(0,-0.6) + (2, 0)$) -- ($(0, 0.6) + (2, 0)$) node(yline2)[above]{$y$};
+	    	
+	    \draw ($(0, 0) + (2, 0)$) -- ++(120:0.6) node(line12)[right]{$\frac{2\pi}{n}$};
+	    \draw ($(0, 0) + (2, 0)$) -- ++(240:0.6);
+	    \draw[densely dashed] ($(0.2, 0) + (2, 0)$) node(arc2)[below] {$r^n$} arc (0:360:0.2);
+	    \draw[densely dashed] ($(0.4, 0) + (2, 0)$) arc (0:360:0.4);
+	    
+	    \node at ($(0.5, 0.5)$) (dummy1) {};
+	    \node at ($(-0.5, 0.5) + (2, 0)$) (dummy2) {};
+	    \path (dummy1) edge[pil, bend left=45] node[above] {$f$} (dummy2) {};
+	\end{tikzpicture}
+\end{center}
+	
+Чтобы продолжить изучение элементарных функций, нам нужно сделать отступление и ввести понятие о непрерывных 
+ветвях и точках ветвления.
+
+\lparagraph{Точки ветвления многозначной функции}
+
+\begin{definition}
+	Пусть $f$ — многозначная функция. Говорят, что в области $G$ выделена \emph{непрерывная ветвь} $f$, если любой 
+	точке из этой области сопоставлено одно значение $f(z)$ так, что полученная однозначная функция непрерывна.
+\end{definition}
+
+Аналогично определяется и непрерывная ветвь вдоль пути.
+
+\begin{remark}
+	Ни существование, ни единственность непрерывной ветви не гарантируются.
+\end{remark}
+
+\begin{definition}
+	$z_0$ называется \emph{точкой ветвления} функции $f$, если в любой окрестности этой точки при обходе её по любому 
+	замкнутому пути любая непрерывная ветвь $f$ вдоль этого пути получает ненулевое приращение.
+\end{definition}
+
+Чтобы в $G$ существовала непрерывная ветвь $f$, необходимо, чтобы $G$ не содержала путей, обходящих точку ветвления.
+
+\begin{example}
+	$f(z) = \Arg z$. $0$ — единственная конечная точка ветвления функции $f$. Непрерывная ветвь $\Arg$ существует в 
+	области, если в этой области нельзя обойти точку $0$. Например, $\complex \textbackslash \real_+$.
+\end{example}
+
+\lparagraph{Функция $\sqrt[n]{z}$, $n \in \mb N$, $n \geqslant 2$}
+
+Эта функция определена в области $\complex \textbackslash \{0\}$ и является $n$-значной.
+$$
+\sqrt[n]{z} = \sqrt[n]{|z|} \cdot e^{\frac{i\Arg z}{n}}
+$$
+
+Непрерывные ветви корня существуют там же, где и непрерывные ветви $\Arg$ — в областях, где нельзя обойти $0$. В каждой 
+такой области существует $n$ непрерывных ветвей:
+$$
+(\sqrt[n]{z})_k = \sqrt[n]{|z|} \cdot e^{\frac{i\arg z}{n} + \frac{2\pi k i}{n}},\quad k = 0,...,n-1
+$$
+
+К каждой ветви применима теорема об обратной функции:
+$$
+w = (\sqrt[n]{z})_k,\quad z = w^n
+$$
+$$
+(\sqrt[n]{z})'_k = \frac{1}{z'} = \frac{1}{nw^{n - 1}} = \frac{1}{n}z^{\frac{1}{n} - 1}
+$$
+
+Отображение $f$ конформно в любой точке $z \neq 0$. В качестве области с непрерывной ветвью можно взять
+$\complex \textbackslash \real_+$:
+
+\begin{center}
+	\begin{tikzpicture}[scale=4,]
+		\draw[axis] (-0.8, 0)  -- (0.8, 0) node(xline1)[right]{$x$};
+	    \draw[axis] (0,-0.6) -- (0, 0.6) node(yline1)[above]{$y$};
+	    
+	    \draw[dotted, line width=3pt] (0, 0) -- (0.73, 0);
+	    \draw (0, 0) -- ++(120:0.6) node(line11)[right]{$\varphi$};
+	    \draw (0, 0) -- ++(240:0.6);
+	    \draw[densely dashed] (0.2, 0) node(arc1)[below] {$r$} arc (0:360:0.2);
+	    \draw[densely dashed] (0.4, 0) arc (0:360:0.4);
+
+		\draw[axis] ($(-0.8, 0) + (2, 0)$)  -- ($(0.8, 0) + (2, 0)$) node(xline2)[right]{$x$};
+	    \draw[axis] ($(0,-0.6) + (2, 0)$) -- ($(0, 0.6) + (2, 0)$) node(yline2)[above]{$y$};
+	    	
+	    \draw ($(0, 0) + (2, 0)$) -- ++(45:0.6) node(line12)[right]{};
+	    \draw ($(0, 0) + (2, 0)$) -- ++(30:0.6);
+	    \draw ($(0, 0) + (2, 0)$) -- ++(15:0.6) node(line21)[right]{$\frac{\varphi}{n}$};
+	    \draw[densely dashed] ($(0.2, 0) + (2, 0)$) node(arc2)[below] {$\sqrt[n]{r}$} arc (0:45:0.2);
+	    \draw[densely dashed] ($(0.4, 0) + (2, 0)$) arc (0:45:0.4);
+	    
+	    \node at ($(0.5, 0.5)$) (dummy1) {};
+	    \node at ($(-0.5, 0.5) + (2, 0)$) (dummy2) {};
+	    \path (dummy1) edge[pil, bend left=45] node[above] {$(\sqrt[n]{z})_k$} (dummy2) {};
+	\end{tikzpicture}
+\end{center}
+
+Далее главной ветвью корня будем называть главную ветвь $\Arg$.
+
+\lparagraph{Экспоненциальная функция}
+
+\begin{definition}
+	Пусть $z = x + iy$. Тогда $e^z = e^x(\cos y + i\sin y)$.
+\end{definition}
+
+\begin{proposition}
+	Свойства экспоненциальной функции:
+\begin{enumerate}
+	\item Комплексная экспоненциальная функция есть продолжение вещественной;
+	\item\label{exponential_regularity} $f(z) = e^z$ регулярна в $\complex$, $f'(z) = e^z$;
+	\item $e^z \neq 0\; \forall z \in \complex$;
+	\item $f$ конформна в любой точке комплексной плоскости;
+	\item\label{exponential_addmult} $e^{z_1+z_2} = e^{z_1}\cdot e^{z_2}$;
+	\item Формула Эйлера: $e^{i\varphi} = \cos \varphi + i\sin \varphi$;
+	\item Функция $f$ $2\pi i$-периодична: $e^{z + 2\pi i} = e^z$;
+	\item $e^{z_1} = e^{z_2} \iff z_1 - z_2 = 2\pi ki$, $k \in \mb Z$. То есть $f$ взаимно 
+	однозначна в области $G$, если $G$ не содержит точек $z_1$, $z_2$ таких, что
+	$z_1 - z_2 = 2\pi ki$;
+	\item $|e^z| = e^x$, $\Arg e^z = y + 2\pi k$, $k \in \mb Z$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+	Мы не будем доказывать все перечисленные свойства, так как большинство из них очевидны.
+	Докажем свойства \ref{exponential_regularity} и \ref{exponential_addmult}.
+	
+	Для доказательства свойства \ref{exponential_regularity} нужно проверить дифференцируемость 
+	вещественной и мнимой части, а также условия Коши-Римана.
+	Пусть $f = u + iv$. $u = e^x\cos y$, $v = e^x\sin y$ — эти функции дифференцируемы в $\real^2$.
+	$u'_x = e^x\cos y = v'y$, $u'_y = -e^x\sin y = -v'_x$. Условия Коши-Римана выполнены.
+	$$
+	f'(z) = u'_x + iv'_x = e^x \cos y + e^x\sin y = e^z
+	$$
+	
+	Свойство \ref{exponential_addmult} доказывается простейшими преобразованиями:
+	$$
+	e^{z_1}\cdot e^{z_2} = e^{x_1}({\cos y_1 + i\sin y_1})\cdot e^{x_2}(\cos y_2 + i\sin y_2) =
+	$$
+	$$
+	= e^{x_1}e^{x_2}(\cos y_1 \cos y_2 - \sin y_1 \sin y_2 + i(\cos y_1 \sin y_2 + \sin y_1 \cos y_2)) =
+	$$
+	$$
+	= e^{x_1 + x_2}(\cos (y_1 + y_2) + i\sin (y_1 + y_2)) = e^{z_1 + z_2}
+	$$
+\end{proof}
+\begin{example}
+	$G = \{0 < \Img z < 2\pi\}$
+	\begin{center}
+	\begin{tikzpicture}[scale=3,]
+		\draw[axis] (-0.8, 0)  -- (0.8, 0) node(xline1)[right]{$x$};
+	    \draw[axis] (0,-0.6) -- (0, 0.6) node(yline1)[above]{$y$};
+	   	
+	    \node[left] at (0, 0.4) {$2\pi$};
+	    \draw (-0.8, 0.2) -- (0.8, 0.2);
+	    \draw (-0.8, 0.06) -- (0.8, 0.06);
+	    \draw[densely dashed] (0.1, 0) -- (0.1, 0.3);
+	    \draw[densely dashed] (0.2, 0) -- (0.2, 0.3);
+	    \path[fill=black,opacity=0.2] (-0.8, 0.3) -- (0.8, 0.3) -- (0.8, 0) -- (-0.8, 0) -- cycle;
+
+		\draw[axis] ($(-0.8, 0) + (2, 0)$)  -- ($(0.8, 0) + (2, 0)$) node(xline2)[right]{$x$};
+	    \draw[axis] ($(0,-0.6) + (2, 0)$) -- ($(0, 0.6) + (2, 0)$) node(yline2)[above]{$y$};
+	    	
+	    \draw[densely dashed] ($(0, 0) + (2, 0)$) circle (0.3);
+	    \draw[densely dashed] ($(0, 0) + (2, 0)$) circle (0.2);
+	    \draw ($(0, 0) + (2, 0)$) -- ++(40:0.6);
+	    \draw ($(0, 0) + (2, 0)$) -- ++(240:0.6);
+	    \draw[dotted, line width=3pt] ($(0, 0) + (2, 0)$) -- ($(0.73, 0) + (2, 0)$);
+	    \path[fill=black,opacity=0.2] ($(-0.8, 0.6) + (2, 0)$) -- ($(0.8, 0.6) + (2, 0)$) --
+	    	($(0.8, -0.6) + (2, 0)$) -- ($(-0.8, -0.6) + (2, 0)$) -- cycle;
+	    
+	    \node at ($(0.5, 0.5)$) (dummy1) {};
+	    \node at ($(-0.5, 0.5) + (2, 0)$) (dummy2) {};
+	    \path (dummy1) edge[pil, bend left=45] node[above] {$e^z$} (dummy2) {};
+	\end{tikzpicture}
+	\end{center}
+\end{example}
+
+\lparagraph{Логарифмическая функция}
+
+\begin{definition}
+	Пусть $z \neq 0$. $w$ называется \emph{логарифмом} $z$, если $e^w = z$.
+\end{definition}
+
 
 \end{document}
