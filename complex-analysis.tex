@@ -16,6 +16,15 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{calc}
 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=2pt,
+           shorten >=2pt},
+    axis/.style={very thick, ->, >=stealth'},
+}
+
 \usepackage[portrait,a4paper,margin=2.5cm,headsep=5mm]{geometry}
 
 \author{Н. В. Цилевич \thanks{Конспект подготовлен студентом Яскевичем С. В.}}
@@ -40,10 +49,12 @@
 \newcommand{\complex}{\mb C}
 \newcommand\eqdef{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny def}}}{=}}}
 \newcommand\lparagraph[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 \DeclareMathOperator{\Ree}{Re}
 \DeclareMathOperator{\Img}{Im}
 \DeclareMathOperator{\Arg}{Arg}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\const}{const}
 
 \begin{document}
 
@@ -95,10 +106,7 @@
 \lparagraph{Геометрическая интерпретация комплексных чисел}\mbox{}\\
 
 \begin{center}
-	\begin{tikzpicture}[
-	    scale=3,
-	    axis/.style={very thick, ->, >=stealth'},
-	    ]
+	\begin{tikzpicture}[scale=3]
 		\draw[axis] (-0.1, 0)  -- (1.1, 0) node(xline)[right]{$x$};
 	    \draw[axis] (0,-0.1) -- (0, 1.1) node(yline)[above]{$y$};
 	    \draw[style={->, >=stealth'}] (0, 0) -- (0.8, 0.7) node[right]{$(x, y) \leftarrow x + iy \in \complex$};
@@ -124,17 +132,17 @@
 
 Заметим, что аргумент определён для любого ненулевого $z$ с точностью до $2\pi k$ ($k \in \mb Z$).
 Будем обозначать $\Arg z$ множество всех аргументов $z$, а $\arg z$ — значение аргумента из
-фиксированного интервала длины $2\pi$, например, $(0, 2\pi)$.
+фиксированного интервала длины $2\pi$, например, $[0, 2\pi)$.
 
 $$
 \Arg z =
 \begin{cases}
-	\arctg \frac{y}{x} + 2\pi k, k \in \mb Z \text{ — в I и IV квадранта}\\
+	\arctg \frac{y}{x} + 2\pi k, k \in \mb Z \text{ — в I и IV квадрантах}\\
 	\arctg \frac{y}{x} + (2k + 1)\pi, k \in \mb Z \text{ — во II и III квадрантах}\\
 \end{cases}
 $$
 $$
-z_1 = z_2 \iff |z_1| = |z_2| \text{ и } \arg z_1 - arg z_2 = 2\pi k\ (k \in \mb Z)
+z_1 = z_2 \iff |z_1| = |z_2| \text{ и } \arg z_1 - \arg z_2 = 2\pi k\ (k \in \mb Z)
 $$
 
 \lparagraph{Показательная форма записи комплексного числа}
@@ -145,7 +153,7 @@ $$
 \begin{lemma}
 	Пусть $z_1 = r_1 e^{i\varphi_1}$, $z_2 = r_2 e^{i\varphi_2}$. Тогда $z_1z_2 = r_1r_2e^{i(\varphi_1 +
 	\varphi_2)}$, $\frac{z_1}{z_2} = \frac{r_1}{r_2}e^{i(\varphi_1 -
-	\varphi_2)}$
+	\varphi_2)}$.
 \end{lemma}
 \begin{proof}
 	$$
@@ -161,7 +169,7 @@ $$
 \end{proof}
 
 Таким образом, имеем $|z_1z_2| = |z_1||z_2|$, $\Arg (z_1z_2) = \Arg z_1 + \Arg z_2$ (по определению суммы множеств 
-$A + B \eqdef \{a + b:\, a \in A,\, b \in B\}$) и $\arg (z_1z_2) = \arg z_1 + \arg z_2 + 2\pi k\:(k\in
+$A + B \eqdef \{a + b\,|\, a \in A,\, b \in B\}$) и $\arg (z_1z_2) = \arg z_1 + \arg z_2 + 2\pi k\:(k\in
 \mb Z)$.
 
 Геометрический смысл умножения на число $a \in \complex$: радиус-вектор растягивается в $|a|$ раз и поворачивается на
@@ -196,10 +204,7 @@ $$
 \section{Стереографическая проекция и сфера Римана}
 
 \begin{center}
-	\begin{tikzpicture}[
-	    scale=4,
-	    axis/.style={very thick, ->, >=stealth'},
-	    ]
+	\begin{tikzpicture}[scale=4]
 		\draw[axis] (-0.1, 0)  -- (1.1, 0) node(xline)[right]{$x$, $\xi$};
 	    \draw[axis] (0,-0.1) -- (0, 1.1) node(zline)[above]{$\zeta$};
 	    \draw[axis] (0.05, 0.05) -- (-0.65, -0.65) node(yline)[left]{$y$, $\eta$};
@@ -235,7 +240,7 @@ $$
 $$
 
 Отождествим комплексную плоскость $(x, y)$ с плоскостью $(\xi, \eta)$. Рассмотрим лучи, исходящие из полюса $N$ в
-точки $z$. Ясно, что точка пересечения луча и сферы единственна. Обозначим её как $A(z)$. Это и будет 
+точки $z \in \complex$. Ясно, что точка пересечения луча и сферы единственна. Обозначим её как $A(z)$. Это и будет 
 стереографическая проекция точки $z$ на сферу $S$, которая называется \emph{сферой Римана}. Таким образом мы 
 установили взаимно-однозначное соответствие между комплексной плоскостью и сферой Римана без полюса:
 $$
@@ -335,12 +340,12 @@ $\infty$.
 Мы отождествили $\complex$ и $\real^2$, а следовательно ввели понятие сходимости, которое наследует из $\real^2$ основные 
 свойства.
 \begin{definition}
-	$z_n \rightarrow z \iff \forall\varepsilon > 0\quad \exists N: \forall n > N\quad |z_n - z| < \varepsilon$.
+	$z_n \to z \iff \forall\varepsilon > 0\quad \exists N: \forall n > N\quad |z_n - z| < \varepsilon$.
 \end{definition}
 
 Свойства сходимости:
 \begin{enumerate}
-	\item \emph{Покоординатность}: $z_n \rightarrow z \iff x_n \rightarrow x,\,y_n \rightarrow y$ (где $z_n = x_n + iy_n$,
+	\item \emph{Покоординатность}: $z_n \to z \iff x_n \to x,\,y_n \to y$ (где $z_n = x_n + iy_n$,
 	$z = x + iy$);
 	\item \emph{Критерий Коши}: $z_n$ сходится, если $\forall \varepsilon > 0\quad\exists N: \forall m, n > N\quad
 	|z_n - z_m| < \varepsilon$;
@@ -352,21 +357,21 @@ $\infty$.
 Расширим понятие сходимости на $\overline{\complex}$.
 
 \begin{definition}
-	$z_n \in \complex \rightarrow \infty \iff \forall R > 0\quad\exists N: \forall n > N\quad |z_n| > R$.
+	$z_n \in \complex \to \infty \iff \forall R > 0\quad\exists N: \forall n > N\quad |z_n| > R$.
 \end{definition}
 \begin{remark}
-	Очевидно, что $z_n \rightarrow \infty \iff |z_n| \rightarrow \infty \iff \frac{1}{|z_n|} \rightarrow 0 \iff
-	\frac{1}{z_n} \rightarrow 0$.
+	Очевидно, что $z_n \to \infty \iff |z_n| \to \infty \iff \frac{1}{|z_n|} \to 0 \iff
+	\frac{1}{z_n} \to 0$.
 \end{remark}
 
 \begin{proposition}
-	Сходимость в $\overline{\complex}$ равносильна сходимости на сфере Римана. В частности, $z_n \rightarrow \infty \iff
-	A(z_n) \rightarrow N$.
+	Сходимость в $\overline{\complex}$ равносильна сходимости на сфере Римана. В частности, $z_n \to \infty \iff
+	A(z_n) \to N$.
 \end{proposition}
 \begin{proof}
 	Следует из формул для расстояния:
 	$$
-	\dist(A(z_n), A(z)) = \frac{|z_n - z|}{\sqrt{1 + |z_n|^2} \cdot \sqrt{1 + |z|^2}} \rightarrow 0
+	\dist(A(z_n), A(z)) = \frac{|z_n - z|}{\sqrt{1 + |z_n|^2} \cdot \sqrt{1 + |z|^2}} \to 0
 	$$
 \end{proof}
 
@@ -376,29 +381,29 @@ $\infty$.
 
 \lparagraph{Предел функции комплексной переменной}
 \begin{definition}
-	$f(x + iy) = \underbrace{u(x, y)}_{\Ree f} + i\underbrace{v(x, y)}_{\Img f}$, при этом $u, v: \real^2 \rightarrow \real$
+	$f(x + iy) = \underbrace{u(x, y)}_{\Ree f} + i\underbrace{v(x, y)}_{\Img f}$, при этом $u, v: \real^2 \to \real$
 \end{definition}
 \begin{definition}
-	Пусть $E\subset\complex$, $f: E \rightarrow \complex$, $z_0$ — предельная точка $E$ и $a \in \overline\complex$.
+	Пусть $E\subset\complex$, $f: E \to \complex$, $z_0$ — предельная точка $E$ и $a \in \overline\complex$.
 	
-	$\lim\limits_{z \rightarrow z_0} f(z) = a \iff \forall \varepsilon > 0\quad \exists \delta > 0: z \in \overset{\circ}{B}_\delta(z_0)\cap E \implies f(z) \in B_\varepsilon(a)$
+	$\lim\limits_{z \to z_0} f(z) = a \iff \forall \varepsilon > 0\quad \exists \delta > 0: z \in \overset{\circ}{B}_\delta(z_0)\cap E \implies f(z) \in B_\varepsilon(a)$
 \end{definition}
 
 Имеет место и покоординатная сходимость: $$
-\lim_{z \rightarrow z_0} f(z) = a = \alpha + i\beta \iff 
+\lim_{z \to z_0} f(z) = a = \alpha + i\beta \iff 
 \begin{cases}
-	\lim\limits_{(x, y) \rightarrow (x_0, y_0)} u(x, y) = \alpha\\
-	\lim\limits_{(x, y) \rightarrow (x_0, y_0)} v(x, y) = \beta\\
+	\lim\limits_{(x, y) \to (x_0, y_0)} u(x, y) = \alpha\\
+	\lim\limits_{(x, y) \to (x_0, y_0)} v(x, y) = \beta\\
 \end{cases}
 $$
 
 \begin{definition}[по Гейне]
-	$\lim\limits_{z \rightarrow z_0} f(z) = a$, если для любой последовательности $z_n \subset E$ такой, что $z_n 
-	\rightarrow z_0$ выполнено $f(z_n) \rightarrow a$.
+	$\lim\limits_{z \to z_0} f(z) = a$, если для любой последовательности $z_n \subset E$ такой, что $z_n 
+	\to z_0$ выполнено $f(z_n) \to a$.
 \end{definition}
 \begin{definition}
-	Пусть $E \subset \complex$, $f: E \rightarrow \complex$, $z_0$ — неизолированная точка множества $E$. Функция $f$ 
-	называется \emph{непрерывной в точке} $z_0$, если $\lim\limits_{z \rightarrow z_0} f(z) = f(z_0)$; \emph{непрерывной на 
+	Пусть $E \subset \complex$, $f: E \to \complex$, $z_0$ — неизолированная точка множества $E$. Функция $f$ 
+	называется \emph{непрерывной в точке} $z_0$, если $\lim\limits_{z \to z_0} f(z) = f(z_0)$; \emph{непрерывной на 
 	множестве} $E$, если $f$ непрерывна в каждой точке этого множества.
 \end{definition}
 
@@ -408,10 +413,229 @@ $$
 	\item Композиция непрерывных функций непрерывна;
 	\item Если функция непрерывна на компакте, то она на нём ограничена, а её модуль достигает на этом компакте своих 
 	наибольшего и наименьшего значений.
-	\item Если $G$ — область (т. е. открытое связное множество), $f: G \rightarrow D$ и $f$ — непрерывная биекция, то
+	\item Если $G$ — область (т. е. открытое связное множество), $f: G \to D$ и $f$ — непрерывная биекция, то
 	$D$ — тоже область и $f^{-1}$ непрерывно.
 \end{enumerate}
 
 \section{Дифференцирование функции комплексной переменной}
+
+\begin{definition}
+	Пусть $f: G \to \complex$, $G$ — область, $z_0 \in G$. Функция называется \emph{дифференцируемой в точке $z_0$}, если существует предел $\lim\limits_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0}$, который называется \emph{производной} функции $f$ в точке $z_0$ и обозначается $f'(z_0)$.
+\end{definition}
+
+Введём обозначение: $z - z_0 = \Delta z$, $f(z) - f(z_0) = \Delta f$ и заметим, что если $\varphi = \alpha + 
+i\beta = o(\Delta z)$, то это то же самое, что $\alpha, \beta = o(\sqrt{\Delta x^2 + \Delta y^2})$.
+
+Рассмотрим простейшие свойства дифференцируемых функций:
+\begin{enumerate}
+	\item \emph{Определение через дифференциал}: функция $f$ дифференцируема в точке $z_0$ тогда и только тогда, 
+	когда существет точка $A \in \complex$ такая, что $\Delta f = A\cdot \Delta z + o(\Delta z)$. При этом 
+	$A = f'(z_0)$;
+	\item Если $f$ дифференцируема в точке, то она непрерывна в этой точке;
+	\item Сумма и произведение дифференцируемых функций дифференцируемы;
+	\item \emph{Композиция}: пусть $f: G \to D$, $g: D \to \complex$, $G$ и $D$ — области, $z_0 \in G$, $w_0 = f(z_0)$ и $h(z) = g(f(z))$. Если $f$ дифференцируема в точке $z_0$, $g$ дифференцируема в точке $w_0$, то $h$ дифференцируема в точке $z_0$ и $h'(z_0) = g'(w_0) \cdot f'(z_0)$.
+\end{enumerate}
+
+\begin{theorem}
+	Пусть $f = u + iv: G  \to \complex$, $G$ — область, $z_0 = (x_0, y_0) \in G$. $f$ дифференцируема в точке
+	$z_0$ тогда и только тогда, когда $u$ и $v$ дифференцируемы как функции из $\real^2$ в $\real$ и, кроме того, 
+	выполнены \textbf{условия Коши-Римана}:
+	$$
+	\frac{\partial u}{\partial x} (x_0, y0) = \frac{\partial v}{\partial y} (x_0, y_0),\quad
+	\frac{\partial u}{\partial y}(x_0, y_0) = -\frac{\partial v}{\partial x} (x_0, y_0)
+	$$
+\end{theorem}
+\begin{proof}
+	Дифференцируемость $f$ в точке $z_0$ равносильна существованию\\$A = a + ib \in \complex$ такого, что
+	$\Delta f = A\Delta z + \varphi$, где $\varphi = o(\Delta z)$. Пусть $\varphi = \alpha + i\beta$. Тогда это 
+	будет равносильно $\Delta u + i\Delta v = (a + ib)(\Delta x + i\Delta y) + \alpha + i\beta$, причём $\alpha, 
+	\beta = o(\sqrt{\Delta x^2 + \Delta y^2})$, что, в свою очередь, равносильно выполнению условий
+	$$
+	\begin{cases}
+		\Delta u = a\Delta x - b\Delta y + \alpha\\
+		\Delta v = a\Delta y + b\Delta x + \beta\\
+	\end{cases}
+	$$
+	То есть $u$ и $v$ дифференцируемы в точке $(x_0, y_0)$. Легко видеть, что
+	$$
+	\frac{\partial u}{\partial x} (x_0, y0) = a = \frac{\partial v}{\partial y} (x_0, y_0), \quad
+	-\frac{\partial u}{\partial y} (x_0, y_0) = b = \frac{\partial v}{\partial x}(x_0, y_0).
+	$$
+\end{proof}
+\begin{remark}
+	Производную функции $f$ можно теперь выразить так: $$
+	f'(z_0) = \pd{u}{x}(x_0, y_0) + i\pd{v}{x}(x_0, y_0) = \pd{v}{y}(x_0, y_0) + i\pd{v}{x}(x_0, y_0) =
+	$$
+	$$
+	= \pd{u}{x}(x_0, y_0) - i\pd{u}{y}(x_0, y_0) = \pd{v}{y}(x_0, y_0) - i\pd{u}{y}(x_0, y_0) 
+	$$
+\end{remark}
+\begin{definition}
+	Функция называется \emph{голоморфной в точке}, если она дифференцируема в некоторой окрестности этой точки. 
+	Функция называется \emph{голоморфной в области}, если она дифференцируема в любой точке этой области.
+\end{definition}
+Далее будем обозначать множество всех функций, голоморфных в области $G$, как $H(G)$.
+
+\begin{example}
+	$$
+	f(z) = u + iv = \overline z = x - iy
+	$$
+	$$
+	u(x, y) = x,\quad v(x, y) = -y,\quad u'_x = 1, v'_y = -1
+	$$
+	Видно, что условия Коши-Римана не выполнены — функция нигде не дифференцируема.
+\end{example}
+Попробуйте в качестве упражнения доказать, что $f(z) = |z|^2$ дифференцируемано не голоморфна в точке $0$.
+
+\begin{proposition}[Условия Коши-Римана в тригонометрической форме]
+\mbox{}\\
+	Пусть $f(z) = u(r, \varphi) + iv(r, \varphi)$. Тогда $\pd{u}{\varphi} = -r\pd{v}{r}$,
+	$\pd{v}{\varphi} = r\pd{u}{r}$
+\end{proposition}
+\begin{proof}
+	$x = r\cos \varphi$, $y = r\sin \varphi$.
+	$$
+	u'_\varphi = u'_x\cdot x'_\varphi + u'_y\cdot y'_\varphi = -u'_x \cdot r\sin \varphi +
+	u'_y \cdot r\cos \varphi = r\cdot(-v'_y\sin \varphi - v'_x\cos \varphi)
+	$$
+	С учётом $v'_r = v'_x \cdot x'_r + v'_y \cdot y'_r = v'_x\cdot \cos \varphi + v'_y \sin \varphi$
+	получим: 
+	$$
+	r\cdot(-v'_y\sin \varphi - v'_x\cos \varphi) = -rv'_r
+	$$
+	Аналогично и для $\pd{v}{\varphi} = r\pd{u}{r}$.
+\end{proof}
+
+\begin{example}
+	$$
+	f(z) = z^n = r^ne^{i\varphi n} = r^n(\cos n\varphi + i\sin n\varphi)
+	$$
+	$$
+	u = r^n\cos n\varphi,\quad v = r^n\sin n\varphi
+	$$
+	$$
+	u'_\varphi = -nr^n\sin n\varphi,\quad v'_r = ur^{n-1}\sin n\varphi,\quad u'_\varphi = -rv'_r.
+	$$
+\end{example}
+\begin{definition}
+	Функция $f$ называется \emph{регулярной в точке}, если она голоморфна в этой точке и $f'$ непрерывна в некоторой 
+	окрестности этой точки.
+\end{definition}
+\begin{theorem}[об обратной функции]
+	Пусть функция $f$ регулярна в точке $z_0$ и $f'(z_0) \neq 0$. Тогда существует окрестность точки $z_0$, в которой 
+	$f$ обратима, причём $f_{-1}$ в соответствующей окрестности точки $w_0 = f(z_)$ дифференцируема и
+	$(f^{-1})'(w_0) = \frac{1}{f'(z_0)}$.
+\end{theorem}
+\begin{proof}
+	Мы хотим применить вещественную теорему об обратной функции, рассматривая $f$ как $\real^2 \to \real^2$. Для этого 
+	нам нужна гладкость, которая есть по условию теоремы, и ненулевой якобиан.
+	$$
+	\begin{vmatrix}
+		u'_x & u'_y\\
+		v'_x & v'_y
+	\end{vmatrix} =
+	u'_xv'_y - v'_xu'_y
+	$$
+	По условию Коши-Римана, это равно:
+	$$
+	(u'_x)^2 + (v'_x)^2 = |f'(z_0)|^2 \neq 0\text{ — по условию.}
+	$$
+	По вещественной теореме об обратной функции существует окрестность точки $z_0$, в которой $f$ обратима и $f^{-1}$ в 
+	соответствующей окрестности точки $w_0$ непрерывна. Так как $f$ и $f^{-1}$ непрерывны, то
+	$\Delta z \to 0 \iff \Delta w \to 0$.
+	$$
+	(f^{-1})'(w_0) = \lim_{\Delta w \to 0}\frac{\Delta f^{-1}}{\Delta w} = \lim_{\Delta w \to 0}
+	\frac{\Delta z}{\Delta f} = \lim_{\Delta z \to 0}\frac{\Delta z}{\Delta f} =
+	\frac{1}{\lim\limits_{\Delta z \to 0}\frac{\Delta f}{\Delta z}} = \frac{1}{f'(z_0)}
+	$$
+\end{proof}
+\begin{examples}
+	\begin{itemize}
+		\item $f(z) = z^n$ — регулярна в $\complex$, $f'(z) = nz^{n-1}$;
+		\item многочлены регулярны в $\complex$;
+		\item $f(z) = \frac{1}{z}$ регулярна в $\complex\textbackslash \{0\}$, $f'(z) = -\frac{1}{z^2}$;
+		\item дробно-линейная функция $\frac{az + b}{cz + d}$ регулярная в $\complex \textbackslash
+		\{-\frac{d}{c}\}$.
+	\end{itemize}
+\end{examples}
+
+\lparagraph{Геометрический смысл аргумента производной}
+
+\begin{definition}
+	Гладкая кривая в $\complex$ — это кривая, у которой существует параметризация $\gamma(t)$, являющаяся простым
+	гладким путём: $\gamma'(t) \neq 0\;\forall t \in [a, b]$.
+\end{definition}
+
+Касательный вектор к кривой $\gamma$ в точке $z_0 = \gamma(t_0)$ есть $\gamma'(t_0)$, и он не зависит от 
+параметризации. Вспомним также, что угол между гладкими кривыми в точке их пересечения есть угол между их касательными 
+в этой точке.
+
+Пусть функция $f$ голоморфна в области $G$, $z_0 = \gamma(t_0) \in G$, $\gamma: [a, b] \to \complex$ — гладкая
+кривая, проходящая
+через точку $z_0$, $\Gamma(t) = f(\gamma(t))$ — образ кривой $\gamma$. Касательный вектор к $\Gamma$ в точке
+$w_0 = f(z_0)$ есть $\Gamma'(t_0)$.
+$$
+\Gamma'(t_0) = f'(z_0) \cdot \gamma'(t_0) \implies \Arg \Gamma'(t_0) = \arg f'(z_0) + \Arg \gamma'(t_0)
+$$
+И можно увидеть геометрический смысл аргумента производной: $\arg f'(z_0)$ — это угол, на который поворачивается
+касательная к любой кривой в точке $z_0$ по действием $f$.
+
+\lparagraph{Понятие конформности}
+
+\begin{definition}
+	Отображение $f$ называется \emph{конформным в точке} $z_0$, если оно сохраняет углы между кривыми в $z_0$
+	(с учётом направления). $f$ называется \emph{конформным в области}~$G$, если оно конформно во всех точках области 
+	$G$ и однолистно (взаимно однозначно).
+\end{definition}
+\begin{examples}
+\begin{itemize}
+	\item если $f$ голоморфна в точке $z_0$ и $f'(z_0) \neq 0$, то $f$ конформно в $z_0$.
+	\item $f(z) = z^2$. $f'(z) = 2z$, $\arg f' = \const \implies f$ конформно в любой точке $z \neq 0$.
+	
+	Допустим, $z_0 = i$. $\arg f'(z_0) = \frac{\pi}{2}$.
+	\begin{center}
+	\begin{tikzpicture}[scale=2,]
+		\draw[axis] (-0.8, 0)  -- (0.8, 0) node(xline1)[right]{$x$};
+	    \draw[axis] (0,-0.1) -- (0, 0.8) node(yline1)[above]{$y$};
+	    \node at (0, 0.3) (i) {};
+	    \fill[black] (i) circle (.03);
+	    \node at ($(i) + (-0.1, 0)$) {$i$};
+
+		\draw[axis] ($(-0.8, 0) + (2, 0)$)  -- ($(0.8, 0) + (2, 0)$) node(xline2)[right]{$x$};
+	    \draw[axis] ($(0,-0.1) + (2, 0)$) -- ($(0, 0.8) + (2, 0)$) node(yline2)[above]{$y$};
+	    \node at ($(-0.3, 0) + (2, 0)$) (imgi) {};
+	    \fill[black] (imgi) circle (.03);
+	    \node at ($(imgi) + (0, -0.15)$) {$-1$};
+	    
+	    \node at ($(0.5, 0.5)$) (dummy1) {};
+	    \node at ($(-0.5, 0.5) + (2, 0)$) (dummy2) {};
+	    \path (dummy1) edge[pil, bend left=45] node {} (dummy2) {};
+	\end{tikzpicture}
+	\end{center}
+	
+	При $z_0 = 0$ конформности нет — углы между кривыми, проходящими через $0$, не сохраняются:
+	\begin{center}
+	\begin{tikzpicture}[scale=2,]
+		\draw[axis] (-0.8, 0)  -- (0.8, 0) node(xline1)[right]{$x$};
+	    \draw[axis] (0,-0.1) -- (0, 0.8) node(yline1)[above]{$y$};
+	    \draw (0, 0) -- (0.4, 0.6) node(beta)[below, rotate=57]{\tiny $\arg z = \beta$};
+	    \draw (0, 0) -- (0.6, 0.3) node(alpha)[below, rotate=27]{\tiny $\arg z = \alpha$};
+
+		\draw[axis] ($(-0.8, 0) + (2, 0)$)  -- ($(0.8, 0) + (2, 0)$) node(xline2)[right]{$x$};
+	    \draw[axis] ($(0,-0.1) + (2, 0)$) -- ($(0, 0.8) + (2, 0)$) node(yline2)[above]{$y$};
+	    \draw ($(0, 0) + (2, 0)$) -- ($(-0.2, 0.48) + (2, 0)$) node(beta2)[below, rotate=-66]{\tiny $\arg w = 2\beta$};
+	    \draw ($(0, 0) + (2, 0)$) -- ($(0.27, 0.36) + (2, 0)$) node(alpha2)[below, rotate=54]
+	    	{\tiny $\arg w = 2\alpha$};
+	    
+	    \node at ($(0.5, 0.5)$) (dummy1) {};
+	    \node at ($(-0.5, 0.5) + (2, 0)$) (dummy2) {};
+	    \path (dummy1) edge[pil, bend left=45] node {} (dummy2) {};
+	\end{tikzpicture}
+	\end{center}
+	Видим, что угол межу прямыми составлял $\beta - \alpha$, а после действия функции $f$ стал $2(\beta - \alpha)$.
+\end{itemize}	
+\end{examples}
+
+\section{Элементарные функции комплексной перемнной}
 
 \end{document}
